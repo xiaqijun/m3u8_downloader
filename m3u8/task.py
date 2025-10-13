@@ -36,7 +36,8 @@ def create_task():
     data = request.json
     if not data or 'name' not in data or 'url' not in data:
         return jsonify({"error": "Invalid input"}), 400
-    new_task = Task(name=data['name'], url=data['url'], status='pending')
+    new_task = Task(name=data['name'], url=data['url'], status='执行中')
     db.session.add(new_task)
     db.session.commit()
     return jsonify({"message": "Task created", "task_id": new_task.id}), 201
+
