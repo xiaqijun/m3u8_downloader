@@ -29,4 +29,14 @@ def tasks_index():
         "per_page":per_page,
         "total":len(tasks)
     }
-    return render_template('task/index.html', tasks=response_data)
+    return render_template('task/index.html', response_data=response_data)
+
+@task_bp.route('/create', methods=['POST'])
+def create_task():
+    data = request.json
+    if not data or 'name' not in data or 'url' not in data:
+        return jsonify({"error": "Invalid input"}), 400
+    new_task = Task(name=data['name'], url=data['url'], status='pending')
+    db.session.add(new_task)
+    db.session.commit()
+    return jsonify({"message": "Task created", "task_id": new_task.id}), 201
