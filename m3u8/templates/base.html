@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}M3U8 Downloader{% endblock %}</title>
+    <link href="{{ url_for('static', filename='/css/bootstrap.min.css') }}" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>M3U8 Downloader</h1>
+        <nav class="navbar navbar-extend-lg navbar-light bg-light">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('task.index') }}">Home</a></li>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+<script>
+    <script src="{{ url_for('static', filename='/script/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/script/bootstrap.min.js') }}"></script>
+</script>
+</html>
