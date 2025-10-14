@@ -42,20 +42,25 @@
                 <td>{{ task.id }}</td>
                 <td>{{ task.name }}</td>
                 <td class="text-truncate text-nowrap" title="{{ task.url }}">
-                    {{ task.url }}
+                    <div class="d-inline-flex align-items-center w-100" style="min-width:0;">
+                        <span id="task-url-{{ task.id }}" class="text-truncate" style="flex:1 1 auto;">{{ task.url }}</span>
+                        <button type="button" class="btn btn-outline-secondary btn-sm ms-2 px-2 py-1 flex-shrink-0" style="border-radius: 0.5rem; white-space: nowrap;" onclick="copyUrl('{{ task.id }}')">
+                            复制
+                        </button>
+                    </div>
                 </td>
 
                 <td><span class="badge bg-info-subtle text-dark px-3 py-2 fs-6 shadow-sm">{{ task.status }}</span></td>
                 <td>{{ task.created_at }}</td>
                 <td>{{ task.updated_at }}</td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-secondary btn-sm px-3 py-1 shadow-sm"
-                        style="border-radius: 0.5rem;">
-                        <i class="bi bi-pencil-square"></i> 重试
-                    </button>
                     <button type="button" class="btn btn-primary btn-sm px-3 py-1 shadow-sm"
+                        style="border-radius: 0.5rem;" onclick="downloadTask({{ task.id }})">
+                         下载
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm px-3 py-1 shadow-sm"
                         style="border-radius: 0.5rem;">
-                        <i class="bi bi-pencil-square"></i> 删除
+                         删除
                     </button>
                 </td>
             </tr>
@@ -90,6 +95,40 @@
     </div>
 </div>
 <script>
+    function copyUrl(id) {
+        const urlSpan = document.getElementById('task-url-' + id);
+        if (urlSpan) {
+            const url = urlSpan.textContent;
+            navigator.clipboard.writeText(url).then(function () {
+                alert('已复制到剪贴板');
+            }, function (err) {
+                alert('复制失败: ' + err);
+            });
+        }
+    }
+    function downloadTask(taskId) {
+        if (!taskId) {
+            alert('任务ID无效');
+            return;
+        }
+        fetch(`/tasks/download/${taskId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
     document.addEventListener('DOMContentLoaded', function () {
         const btn = document.getElementById('create-task-btn');
         btn.addEventListener('click', function () {

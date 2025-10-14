@@ -62,6 +62,15 @@ def extract_archive(filepath, target_dir):
     else:
         raise RuntimeError(f"未知的压缩格式: {filepath}")
 
+    # 统一重命名解压后的 FFmpeg 文件夹为 ffmpeg_bin
+    subdirs = [d for d in os.listdir(target_dir) if os.path.isdir(os.path.join(target_dir, d))]
+    if len(subdirs) == 1:
+        src = os.path.join(target_dir, subdirs[0])
+        dst = os.path.join(target_dir, "ffmpeg_bin")
+        if os.path.exists(dst):
+            shutil.rmtree(dst)
+        os.rename(src, dst)
+
 
 def update_ffmpeg():
     """
@@ -78,6 +87,15 @@ def update_ffmpeg():
     base_dir = os.path.join(os.getcwd(), "ffmpeg")
     os.makedirs(base_dir, exist_ok=True)
 
+    archive_path = os.path.join(base_dir, filename)
+
+    # 如果已下载且已解压，且 ffmpeg_bin 文件夹存在，直接返回
+    ffmpeg_bin_dir = os.path.join(base_dir, "ffmpeg_bin")
+    ffmpeg_extracted_flag = os.path.join(base_dir, '.extracted')
+    if os.path.exists(archive_path) and os.path.exists(ffmpeg_extracted_flag) and os.path.exists(ffmpeg_bin_dir):
+        print(f"✅ FFmpeg 已存在于 {ffmpeg_bin_dir}，跳过下载和解压")
+        return ffmpeg_bin_dir
+
     # 清空旧内容
     for item in os.listdir(base_dir):
         item_path = os.path.join(base_dir, item)
@@ -86,16 +104,22 @@ def update_ffmpeg():
         else:
             os.remove(item_path)
 
-    archive_path = os.path.join(base_dir, filename)
-
     print("下载中...")
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
+        total = int(r.headers.get('content-length', 0))
+        downloaded = 0
         with open(archive_path, "wb") as f:
-            shutil.copyfileobj(r.raw, f)
-
+            for chunk in r.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    percent = downloaded * 100 // total if total else 0
     print("解压中...")
     extract_archive(archive_path, base_dir)
+    # 标记已解压
+    with open(ffmpeg_extracted_flag, 'w') as f:
+        f.write('ok')
 
-    print(f"✅ FFmpeg 已下载并解压至 {base_dir}")
-    return base_dir
+    print(f"✅ FFmpeg 已下载并解压至 {ffmpeg_bin_dir}")
+    return ffmpeg_bin_dir

@@ -2,12 +2,12 @@ from datetime import datetime, timezone
 import m3u8
 from .extensions import scheduler, db
 from .models import Segment, Task
-
+from .ffmpeg_update import update_ffmpeg
 
 @scheduler.task(
     'interval',
     id='start_downloader',
-    seconds=120,
+    seconds=30,
     misfire_grace_time=900,
     max_instances=1,
     next_run_time=datetime.now(timezone.utc),
@@ -38,7 +38,7 @@ def start_downloader():
                             downloaded=False,
                         )
                         db.session.add(new_segment)
-                pending_task.status = '下载中'
+                pending_task.status = '解析完成'
                 db.session.commit()
                 print(f"任务 {pending_task.name} 分片解析完成, 共 {len(segment_list)} 个分片")
             except Exception as exc:
@@ -60,3 +60,21 @@ def get_segments(url: str):
             'sequence': index,
         })
     return segments
+
+@scheduler.task(
+    'interval',
+    id='update_ffmpeg_task',
+    hours=24,
+    misfire_grace_time=3600,
+    max_instances=1,
+    next_run_time=datetime.now(timezone.utc),
+)
+def update_ffmpeg_task():
+    """定时任务：每天更新一次 FFmpeg"""
+    with scheduler.app.app_context():
+        try:
+            print("正在检查并更新 FFmpeg...")
+            ffmpeg_path = update_ffmpeg()
+            print(f"FFmpeg 更新完成，路径: {ffmpeg_path}")
+        except Exception as exc:
+            print(f"FFmpeg 更新失败: {exc}")
