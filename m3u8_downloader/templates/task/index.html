@@ -1,0 +1,121 @@
+{% extends './base.html' %}
+{% block title %}Task List{% endblock %}
+{% block content %}
+<div class="mt-4 table-responsive-lg">
+    <div class="d-flex justify-content-between align-items-center gap-3 mb-3">
+        <button type="button" class="btn btn-success btn-sm px-3 py-1 shadow-sm" style="border-radius: 0.5rem;"
+            data-bs-toggle="modal" data-bs-target="#createTaskModal">
+            新增任务
+        </button>
+        <form class="d-flex gap-2" role="search" method="get" action="">
+            <input class="form-control form-control-sm rounded-pill" type="search" placeholder="搜索任务"
+                aria-label="Search" name="q" style="max-width:160px;">
+            <button class="btn btn-outline-primary btn-sm px-3 py-1 rounded-pill shadow-sm" type="submit">搜索</button>
+        </form>
+    </div>
+    <table class="table table-hover table-bordered table-sm align-middle caption-top mx-auto"
+        style="background: #f8fafc; border-radius: 0.75rem; overflow: hidden; table-layout: fixed; width: 100%;">
+        <colgroup>
+            <col style="width: 64px;">   <!-- ID -->
+            <col style="width: 180px;">  <!-- 任务名称 -->
+            <col style="width: 360px;">  <!-- 任务链接 -->
+            <col style="width: 120px;">  <!-- 状态 -->
+            <col style="width: 160px;">  <!-- 创建时间 -->
+            <col style="width: 160px;">  <!-- 更新时间 -->
+            <col style="width: 160px;">  <!-- 操作 -->
+        </colgroup>
+        <caption class="fs-5 fw-bold text-dark">任务列表</caption>
+        <thead class="table-primary text-center">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">任务名称</th>
+                <th scope="col">任务链接</th>
+                <th scope="col">状态</th>
+                <th scope="col">创建时间</th>
+                <th scope="col">更新时间</th>
+                <th scope="col">操作</th>
+            </tr>
+        </thead>
+    <tbody class="text-center">
+            {% for task in response_data.tasks %}
+            <tr class="align-middle">
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td class="text-truncate text-nowrap" title="{{ task.url }}">
+                    {{ task.url }}
+                </td>
+
+                <td><span class="badge bg-info-subtle text-dark px-3 py-2 fs-6 shadow-sm">{{ task.status }}</span></td>
+                <td>{{ task.created_at }}</td>
+                <td>{{ task.updated_at }}</td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-secondary btn-sm px-3 py-1 shadow-sm"
+                        style="border-radius: 0.5rem;">
+                        <i class="bi bi-pencil-square"></i> 重试
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm px-3 py-1 shadow-sm"
+                        style="border-radius: 0.5rem;">
+                        <i class="bi bi-pencil-square"></i> 删除
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createTaskModalLabel">新增任务</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="create-task-form">
+                    <div class="mb-3">
+                        <label for="task-name" class="col-form-label">任务名称:</label>
+                        <input type="text" class="form-control" id="task-name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="task-url" class="col-form-label">任务链接:</label>
+                        <input type="url" class="form-control" id="task-url" name="url" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                <button id="create-task-btn" type="button" class="btn btn-primary">创建任务</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btn = document.getElementById('create-task-btn');
+        btn.addEventListener('click', function () {
+            const form = document.getElementById('create-task-form');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            fetch('/tasks/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        alert(data.message);
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    });
+</script>
+{% endblock %}

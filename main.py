@@ -1,4 +1,4 @@
-from m3u8 import create_app
+from m3u8_downloader import create_app
 def main():
     app = create_app()
     app.run(debug=True)

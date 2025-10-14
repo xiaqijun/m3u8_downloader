@@ -1,6 +1,20 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.12"
+
+[[package]]
+name = "alembic"
+version = "1.17.0"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+dependencies = [
+    { name = "mako" },
+    { name = "sqlalchemy" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/6b/45/6f4555f2039f364c3ce31399529dcf48dd60726ff3715ad67f547d87dfd2/alembic-1.17.0.tar.gz", hash = "sha256:4652a0b3e19616b57d652b82bfa5e38bf5dbea0813eed971612671cb9e90c0fe" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/44/1f/38e29b06bfed7818ebba1f84904afdc8153ef7b6c7e0d8f3bc6643f5989c/alembic-1.17.0-py3-none-any.whl", hash = "sha256:80523bc437d41b35c5db7e525ad9d908f79de65c27d6a5a5eab6df348a352d99" },
+]
 
 [[package]]
 name = "apscheduler"
@@ -186,6 +200,20 @@ dependencies = [
 sdist = { url = "https://mirrors.aliyun.com/pypi/packages/26/23/956b5ffbd1b473fa96ad4aa7918cfbf4616b58f4c9de8c9fd52c6ccf9141/Flask-APScheduler-1.13.1.tar.gz", hash = "sha256:b929846f026fb339b76360b0e4fc75da78b75c6d08625715bd0d37949bd607da" }
 
 [[package]]
+name = "flask-migrate"
+version = "4.1.0"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+dependencies = [
+    { name = "alembic" },
+    { name = "flask" },
+    { name = "flask-sqlalchemy" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/5a/8e/47c7b3c93855ceffc2eabfa271782332942443321a07de193e4198f920cf/flask_migrate-4.1.0.tar.gz", hash = "sha256:1a336b06eb2c3ace005f5f2ded8641d534c18798d64061f6ff11f79e1434126d" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/d2/c4/3f329b23d769fe7628a5fc57ad36956f1fb7132cf8837be6da762b197327/Flask_Migrate-4.1.0-py3-none-any.whl", hash = "sha256:24d8051af161782e0743af1b04a152d007bad9772b2bca67b7ec1e8ceeb3910d" },
+]
+
+[[package]]
 name = "flask-sqlalchemy"
 version = "3.1.1"
 source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
@@ -253,6 +281,15 @@ wheels = [
 ]
 
 [[package]]
+name = "m3u8"
+version = "6.0.0"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/9b/a5/73697aaa99bb32b610adc1f11d46a0c0c370351292e9b271755084a145e6/m3u8-6.0.0.tar.gz", hash = "sha256:7ade990a1667d7a653bcaf9413b16c3eb5cd618982ff46aaff57fe6d9fa9c0fd" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/f8/31/50f3c38b38ff28635ff9c4a4afefddccc5f1b57457b539bdbdf75ce18669/m3u8-6.0.0-py3-none-any.whl", hash = "sha256:566d0748739c552dad10f8c87150078de6a0ec25071fa48e6968e96fc6dcba5d" },
+]
+
+[[package]]
 name = "m3u8-downloader"
 version = "0.1.0"
 source = { virtual = "." }
@@ -260,7 +297,9 @@ dependencies = [
     { name = "cryptography" },
     { name = "flask" },
     { name = "flask-apscheduler" },
+    { name = "flask-migrate" },
     { name = "flask-sqlalchemy" },
+    { name = "m3u8" },
     { name = "pymysql" },
 ]
 
@@ -269,8 +308,22 @@ requires-dist = [
     { name = "cryptography", specifier = ">=46.0.2" },
     { name = "flask", specifier = ">=3.1.2" },
     { name = "flask-apscheduler", specifier = ">=1.13.1" },
+    { name = "flask-migrate", specifier = ">=4.1.0" },
     { name = "flask-sqlalchemy", specifier = ">=3.1.1" },
+    { name = "m3u8", specifier = ">=6.0.0" },
     { name = "pymysql", specifier = ">=1.1.2" },
+]
+
+[[package]]
+name = "mako"
+version = "1.3.10"
+source = { registry = "https://mirrors.aliyun.com/pypi/simple/" }
+dependencies = [
+    { name = "markupsafe" },
+]
+sdist = { url = "https://mirrors.aliyun.com/pypi/packages/9e/38/bd5b78a920a64d708fe6bc8e0a2c075e1389d53bef8413725c63ba041535/mako-1.3.10.tar.gz", hash = "sha256:99579a6f39583fa7e5630a28c3c1f440e4e97a414b80372649c0ce338da2ea28" }
+wheels = [
+    { url = "https://mirrors.aliyun.com/pypi/packages/87/fb/99f81ac72ae23375f22b7afdb7642aba97c00a713c217124420147681a2f/mako-1.3.10-py3-none-any.whl", hash = "sha256:baef24a52fc4fc514a0887ac600f9f1cff3d82c61d4d700a1fa84d597b88db59" },
 ]
 
 [[package]]
