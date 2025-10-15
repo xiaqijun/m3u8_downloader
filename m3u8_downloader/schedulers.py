@@ -3,7 +3,7 @@ import m3u8
 from .extensions import scheduler, db
 from .models import Segment, Task
 from .ffmpeg_update import update_ffmpeg
-
+import urllib.parse
 @scheduler.task(
     'interval',
     id='start_downloader',
@@ -16,7 +16,7 @@ def start_downloader():
     """定时任务：解析 M3U8 分片"""
     with scheduler.app.app_context():
         try:
-            pending_task = Task.query.filter_by(status='等待中').first()
+            pending_task = Task.query.filter_by(status='等待解析').first()
             if not pending_task:
                 print("正在执行分片解析任务, 任务名称: 无待处理任务")
                 return
@@ -49,16 +49,30 @@ def start_downloader():
             # 避免任务抛异常导致调度器静默失败
             print(f"分片解析任务执行失败: {exc}")
 
+def abs_url(base, uri):
+    return urllib.parse.urljoin(base, uri)
 
-def get_segments(url: str):
-    playlist = m3u8.load(url)
+def get_segments(URL):
+    playlist = m3u8.load(URL)
     segments = []
-    for index, segment in enumerate(playlist.segments):
-        segments.append({
-            'uri': segment.uri,
-            'duration': segment.duration,
-            'sequence': index,
-        })
+    # 如果是多码率主列表
+    if playlist.playlists:
+        for sub in playlist.playlists:
+            sub_url = abs_url(URL, sub.uri)
+            sub_playlist = m3u8.load(sub_url)
+            for i, segment in enumerate(sub_playlist.segments):
+                segments.append({
+                    'uri': abs_url(sub_url, segment.uri),
+                    'duration': segment.duration,
+                    'sequence': i
+                })
+    else:
+        for i, segment in enumerate(playlist.segments):
+            segments.append({
+                'uri': abs_url(URL, segment.uri),
+                'duration': segment.duration,
+                'sequence': i
+            })
     return segments
 
 @scheduler.task(

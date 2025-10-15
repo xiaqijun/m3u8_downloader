@@ -10,4 +10,4 @@ wheels/
 .venv
 config.py
 ffmpeg
-m3u8_downloader/tmp
+tmp

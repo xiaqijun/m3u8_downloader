@@ -48,10 +48,11 @@ def create_task():
 @task_bp.route('/download/<int:task_id>', methods=['POST'])
 def download_task(task_id):
     task = Task.query.get(task_id)
+    segment=Segment.query.filter_by(task_id=task_id, downloaded=True)
     if not task:
         return jsonify({"error": "Task not found"}), 404
     # 允许下载的前置状态应为 '解析完成'
-    if task.status == '解析完成':
+    if task.segments.downloaded.count() == 0:
         return jsonify({"error": "Task not ready for download", "current_status": task.status}), 400
     # 使用本地时间（与配置 Asia/Shanghai 保持一致）
     run_at = datetime.now() + timedelta(seconds=1)
@@ -111,3 +112,12 @@ def download_segments(task_id):
             task.status = f'部分完成(剩余{remaining})'
         db.session.commit()
         print(f"[DownloadWorker] 任务 {task.id} 完成状态: {task.status}")
+    
+@task_bp.route('/delete/<int:task_id>', methods=['POST'])
+def delete_task(task_id):
+    task = Task.query.get(task_id)
+    if not task:
+        return jsonify({"error": "Task not found"}), 404
+    db.session.delete(task)
+    db.session.commit()
+    return jsonify({"message": "Task deleted"}), 200
