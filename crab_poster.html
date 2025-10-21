@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,20 +13,21 @@
             font-weight: normal;
             font-style: normal;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'SourceHanSansCN', sans-serif;
         }
-        
+
         body {
             background-color: #f7f8fb;
             padding: 20px;
-            color: #1f2937; /* slate-800 */
+            color: #1f2937;
+            /* slate-800 */
         }
-        
+
         .poster-container {
             max-width: 800px;
             margin: 0 auto;
@@ -38,10 +40,11 @@
             border: 1px solid rgba(31, 41, 55, 0.06);
             box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08), 0 2px 8px rgba(17, 24, 39, 0.04);
         }
-        
+
         h1 {
             text-align: center;
-            color: #111827; /* gray-900 */
+            color: #111827;
+            /* gray-900 */
             margin-bottom: 24px;
             font-size: 30px;
             line-height: 1.2;
@@ -59,14 +62,14 @@
             border-radius: 999px;
             background: linear-gradient(90deg, #667eea, #764ba2);
         }
-        
+
         .price-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
             margin-bottom: 28px;
         }
-        
+
         .price-card {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.98));
             border-radius: 16px;
@@ -81,12 +84,31 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 32px rgba(17, 24, 39, 0.1);
         }
-        
-    .mixed-8 { --accent: #667eea; --accent-2: #8ea6ff; border-left-color: var(--accent); }
-    .mixed-10 { --accent: #764ba2; --accent-2: #a18cd1; border-left-color: var(--accent); }
-    .female-8 { --accent: #f093fb; --accent-2: #f5576c; border-left-color: var(--accent); }
-    .female-10 { --accent: #f5576c; --accent-2: #f093fb; border-left-color: var(--accent); }
-        
+
+        .mixed-8 {
+            --accent: #667eea;
+            --accent-2: #8ea6ff;
+            border-left-color: var(--accent);
+        }
+
+        .mixed-10 {
+            --accent: #764ba2;
+            --accent-2: #a18cd1;
+            border-left-color: var(--accent);
+        }
+
+        .female-8 {
+            --accent: #f093fb;
+            --accent-2: #f5576c;
+            border-left-color: var(--accent);
+        }
+
+        .female-10 {
+            --accent: #f5576c;
+            --accent-2: #f093fb;
+            border-left-color: var(--accent);
+        }
+
         .price-card h2 {
             text-align: center;
             margin-bottom: 14px;
@@ -94,7 +116,7 @@
             font-size: 18px;
             letter-spacing: 0.3px;
         }
-        
+
         .price-table {
             width: 100%;
             border-collapse: separate;
@@ -102,13 +124,14 @@
             overflow: hidden;
             border-radius: 12px;
         }
-        
-        .price-table th, .price-table td {
+
+        .price-table th,
+        .price-table td {
             padding: 12px 10px;
             text-align: center;
             border-bottom: 1px solid rgba(17, 24, 39, 0.06);
         }
-        
+
         .price-table th {
             background-color: #667eea;
             color: white;
@@ -116,20 +139,31 @@
         }
 
         /* 头部渐变根据卡片主题色 */
-        .mixed-8 .price-table th { background: linear-gradient(135deg, #667eea, #8ea6ff); }
-        .mixed-10 .price-table th { background: linear-gradient(135deg, #764ba2, #a18cd1); }
-        .female-8 .price-table th { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .female-10 .price-table th { background: linear-gradient(135deg, #f5576c, #f093fb); }
-        
+        .mixed-8 .price-table th {
+            background: linear-gradient(135deg, #667eea, #8ea6ff);
+        }
+
+        .mixed-10 .price-table th {
+            background: linear-gradient(135deg, #764ba2, #a18cd1);
+        }
+
+        .female-8 .price-table th {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .female-10 .price-table th {
+            background: linear-gradient(135deg, #f5576c, #f093fb);
+        }
+
         .price-table tr:nth-child(even) {
             background-color: rgba(17, 24, 39, 0.02);
         }
-        
+
         .price-table .price {
             color: #E63946;
             font-weight: 800;
         }
-        
+
         .service-promises {
             margin-top: 8px;
             padding: 18px 20px;
@@ -138,19 +172,20 @@
             border: 1px solid rgba(31, 41, 55, 0.06);
             box-shadow: 0 6px 20px rgba(17, 24, 39, 0.06);
         }
-        
+
         .service-promises ul {
             list-style-type: none;
             padding-left: 0;
         }
-        
+
         .service-promises li {
             margin-bottom: 10px;
             padding-left: 28px;
             position: relative;
-            color: #374151; /* gray-700 */
+            color: #374151;
+            /* gray-700 */
         }
-        
+
         .service-promises li:before {
             content: "";
             position: absolute;
@@ -159,7 +194,8 @@
             width: 18px;
             height: 18px;
             border-radius: 6px;
-            background: linear-gradient(135deg, #10b981, #34d399); /* teal-green */
+            background: linear-gradient(135deg, #10b981, #34d399);
+            /* teal-green */
             box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
         }
 
@@ -173,7 +209,7 @@
             font-weight: 700;
             line-height: 1;
         }
-        
+
         .export-btn {
             display: block;
             margin: 20px auto;
@@ -187,17 +223,18 @@
             box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
             transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
-        
+
         .export-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 28px rgba(118, 75, 162, 0.35);
             filter: brightness(1.03);
         }
-        
+
         .footer {
             text-align: center;
             margin-top: 26px;
-            color: #6b7280; /* gray-500 */
+            color: #6b7280;
+            /* gray-500 */
             font-size: 12px;
         }
 
@@ -206,7 +243,8 @@
             margin: 10px 0 18px;
             padding: 12px 16px;
             background: linear-gradient(180deg, rgba(118, 75, 162, 0.08), rgba(102, 126, 234, 0.08));
-            border-left: 6px solid #764ba2; /* 与 mixed-10 色系一致 */
+            border-left: 6px solid #764ba2;
+            /* 与 mixed-10 色系一致 */
             border-radius: 10px;
             font-size: 18px;
             color: #1f2937;
@@ -233,77 +271,140 @@
         }
     </style>
 </head>
+
 <body>
     <div class="poster-container" id="poster-content">
         <h1>🦀 精品大闸蟹套餐价格表</h1>
-    <div class="highlight-line"><span class="badge">人气</span>尝鲜装，2.5公1.5母十只 <span class="price">108 元</span></div>
-        
+        <div class="highlight-line"><span class="badge">人气</span>尝鲜装,2.5公1.5母十只 <span class="price">108 元</span></div>
         <div class="price-grid">
             <div class="price-card mixed-8">
                 <h2>公母混合 · 8只装</h2>
                 <table class="price-table">
-                    <tr><th>套餐规格</th><th>价格 (元)</th></tr>
-                    <tr><td>3.0公2.0母（公母各4只）</td><td class="price">168</td></tr>
-                    <tr><td>3.5公2.5母（公母各4只）</td><td class="price">218</td></tr>
-                    <tr><td>3.5公2.8母（公母各4只）</td><td class="price">258</td></tr>
-                    <tr><td>4公3母（公母各4只）</td><td class="price">328</td></tr>
+                    <tr>
+                        <th>套餐规格</th>
+                        <th>价格 (元)</th>
+                    </tr>
+                    <tr>
+                        <td>3.0公2.0母（公母各4只）</td>
+                        <td class="price">168</td>
+                    </tr>
+                    <tr>
+                        <td>3.5公2.5母（公母各4只）</td>
+                        <td class="price">218</td>
+                    </tr>
+                    <tr>
+                        <td>3.5公2.8母（公母各4只）</td>
+                        <td class="price">258</td>
+                    </tr>
+                    <tr>
+                        <td>4.0公3.0母（公母各4只）</td>
+                        <td class="price">328</td>
+                    </tr>
                 </table>
             </div>
-            
+
             <div class="price-card mixed-10">
                 <h2>公母混合 · 10只装</h2>
                 <table class="price-table">
-                    <tr><th>套餐规格</th><th>价格 (元)</th></tr>
-                    <tr><td>3.0公2.0母（公母各5只）</td><td class="price">188</td></tr>
-                    <tr><td>3.5公2.5母（公母各5只）</td><td class="price">258</td></tr>
-                    <tr><td>3.5公2.8母（公母各5只）</td><td class="price">298</td></tr>
-                    <tr><td>4公3母（公母各5只）</td><td class="price">398</td></tr>
+                    <tr>
+                        <th>套餐规格</th>
+                        <th>价格 (元)</th>
+                    </tr>
+                    <tr>
+                        <td>3.0公2.0母（公母各5只）</td>
+                        <td class="price">188</td>
+                    </tr>
+                    <tr>
+                        <td>3.5公2.5母（公母各5只）</td>
+                        <td class="price">258</td>
+                    </tr>
+                    <tr>
+                        <td>3.5公2.8母（公母各5只）</td>
+                        <td class="price">298</td>
+                    </tr>
+                    <tr>
+                        <td>4.0公3.0母（公母各5只）</td>
+                        <td class="price">398</td>
+                    </tr>
                 </table>
             </div>
-            
+
             <div class="price-card female-8">
                 <h2>全母精品 · 8只装</h2>
                 <table class="price-table">
-                    <tr><th>套餐规格</th><th>价格 (元)</th></tr>
-                    <tr><td>2.0母（全母8只）</td><td class="price">158</td></tr>
-                    <tr><td>2.5母（全母8只）</td><td class="price">198</td></tr>
-                    <tr><td>2.5母（全母8只）</td><td class="price">258</td></tr>
-                    <tr><td>3母（全母8只装）</td><td class="price">308</td></tr>
+                    <tr>
+                        <th>套餐规格</th>
+                        <th>价格 (元)</th>
+                    </tr>
+                    <tr>
+                        <td>2.0母（全母8只）</td>
+                        <td class="price">158</td>
+                    </tr>
+                    <tr>
+                        <td>2.5母（全母8只）</td>
+                        <td class="price">198</td>
+                    </tr>
+                    <tr>
+                        <td>2.8母（全母8只）</td>
+                        <td class="price">258</td>
+                    </tr>
+                    <tr>
+                        <td>3.0母（全母8只）</td>
+                        <td class="price">308</td>
+                    </tr>
                 </table>
             </div>
-            
+
             <div class="price-card female-10">
                 <h2>全母精品 · 10只装</h2>
                 <table class="price-table">
-                    <tr><th>套餐规格</th><th>价格 (元)</th></tr>
-                    <tr><td>2.0母（全母10只）</td><td class="price">188</td></tr>
-                    <tr><td>2.5母（全母10只）</td><td class="price">238</td></tr>
-                    <tr><td>2.5母（全母10只）</td><td class="price">298</td></tr>
-                    <tr><td>3母（全母10只）</td><td class="price">368</td></tr>
+                    <tr>
+                        <th>套餐规格</th>
+                        <th>价格 (元)</th>
+                    </tr>
+                    <tr>
+                        <td>2.0母（全母10只）</td>
+                        <td class="price">188</td>
+                    </tr>
+                    <tr>
+                        <td>2.5母（全母10只）</td>
+                        <td class="price">238</td>
+                    </tr>
+                    <tr>
+                        <td>2.8母（全母10只）</td>
+                        <td class="price">298</td>
+                    </tr>
+                    <tr>
+                        <td>3.0母（全母10只）</td>
+                        <td class="price">368</td>
+                    </tr>
                 </table>
             </div>
         </div>
-        
+
         <div class="service-promises">
             <ul>
-                <li>灵活搭配：支持任意套餐组合，满足个性化需求</li>
-                <li>极速配送：顺丰特快专线，新鲜直达不等待</li>
-                <li>包邮政策：西藏、新疆（+30运费）、黑龙江、吉林（+20运费）、辽宁、贵州、广西、甘肃、宁夏、内蒙古、云南、海南、青海、广东、重庆、四川（+12运费）、江浙沪皖（-15运费）</li>
-                <li>售后无忧：正常签收 12 小时内，死蟹凭凭证全额赔付</li>
+                <li>🌟 灵活搭配：多种套餐可供选择，满足不同口味与送礼需求～私聊可定制套餐</li>
+                <li>🚚 极速配送：顺丰特快冷链直达，新鲜美味不等待</li>
+                <li>📦 发货时间：当天 19:00 前下单，次日早上或下午发货，保证新鲜现捞现发</li>
+                <li>🎁 精美礼盒：礼盒包装，送礼更体面，自享更有仪式感</li>
+                <li>🦀 售后无忧：签收后 12 小时内如有死蟹，凭照片或视频凭证全额赔付</li>
+                <li>💰 运费政策：浙沪皖享运费减免（-15元)四川、重庆、广东、云南、贵州、广西、甘肃、宁夏、内蒙古、青海、海南（+8元）  黑龙江、吉林（+20元）  西藏、新疆（+30元）
+                </li>
             </ul>
         </div>
     </div>
-    
+
     <button class="export-btn" onclick="exportAsPoster()">导出为海报</button>
-    
+
     <script>
         function exportAsPoster() {
             const element = document.getElementById('poster-content');
             const button = document.querySelector('.export-btn');
-            
+
             // 隐藏按钮
             button.style.display = 'none';
-            
+
             html2canvas(element, {
                 scale: 2,
                 useCORS: true,
@@ -311,7 +412,7 @@
             }).then(canvas => {
                 // 恢复按钮显示
                 button.style.display = 'block';
-                
+
                 // 创建下载链接
                 const link = document.createElement('a');
                 link.download = 'crab_poster.png';
@@ -321,4 +422,5 @@
         }
     </script>
 </body>
+
 </html>
